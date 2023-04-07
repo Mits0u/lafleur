@@ -23,6 +23,30 @@
         <img src="assets/img/illu1" alt="illustration">
     </div>
 </div>
+
+<?php
+require 'sqlconnect.php'; // on inclut le fichier de connexion à la base de données
+
+// Vérifier si les champs sont remplis
+if (isset($_POST['email']) && isset($_POST['password'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    
+    $sql = "SELECT * FROM utilisateurs WHERE mail = :email AND password = :password";
+    $results = $connection->prepare($sql);
+    $results->bindParam(':email', $email);
+    $results->bindParam(':password', $password);
+    $results->execute();
+
+    $array = $results->fetchAll();
+    if (count($array) == 1){
+        $_SESSION['email'] = $email;
+        echo '<h1>' . 'Authentification réussie' . '</h1>';
+    } else {
+        echo "Erreur d'authentification";
+    }
+}
+?>
     
 </body>
 </html>
