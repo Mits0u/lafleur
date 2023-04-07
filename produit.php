@@ -12,7 +12,7 @@
  */
     $categorie=$_GET[''];
     require 'sqlconnect.php';
-    $produit='SELECT * FROM lafleuriste WHERE categorie="'.$categorie.'"';
+    $produit='SELECT * FROM articles WHERE categorie="'.$categorie.'"';
     $table=$connection->query($produit);
     $ligne=$table->fetch();
     //besoin d'une liste de catégorie
