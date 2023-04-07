@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `prenom` varchar(255) COLLATE utf8_bin NOT NULL,
   `adresse` varchar(255) COLLATE utf8_bin NOT NULL,
   `tel` varchar(10) COLLATE utf8_bin NOT NULL,
+  `mdp` char(32) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
