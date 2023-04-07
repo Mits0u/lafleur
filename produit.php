@@ -11,7 +11,6 @@
  * @link     http://aaa.com
  */
     $categorie=$_GET[''];
-    require 'connect.php';
     $produit='SELECT * FROM lafleuriste WHERE categorie="'.$categorie.'"';
     $table=$connection->query($produit);
     $ligne=$table->fetch();
