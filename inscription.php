@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="container">
+    <form method="post" action="" class="form">
+    <h1> Connexion </h1>
 <?php 
     require_once 'sqlconnect.php'; // On inclu la connexion à la bdd
 
@@ -13,8 +26,13 @@
             <label for="tel">Telephone</label> : <input type="text" name="tel" id="tel" /><br />
             <input type="submit" value="Inscription" />
         </p>
-    </form>';
-
+    </form>'
+?>
+    </form>
+        <div class="side">
+            <img src="assets/img/illu1" alt="illustration">
+        </div>;
+<?php
     // si le formulaire est envoyé
 
     if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['adresse']) && isset($_POST['pass1']) && isset($_POST['pass2']) && isset($_POST['mail']) && isset($_POST['tel'])) {
@@ -46,3 +64,6 @@
         }
     }
 ?>
+
+</body>
+</html>
