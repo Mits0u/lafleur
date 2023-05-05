@@ -10,12 +10,13 @@
 <body>
 <div class="container">
     <form method="post" action="" class="form">
-    <h1> Connexion </h1>
+    <h1> Inscription </h1>
 <?php 
     require_once 'sqlconnect.php'; // On inclu la connexion à la bdd
 
     // creation du formulaire
-    echo '<form action="inscription.php" method="post">
+    echo '<form action="inscription.php" method="post">'
+    ?>
         <p>
             <label for="nom">Nom</label> : <input type="text" name="nom" id="nom" /><br />
             <label for="prenom">Prenom</label> : <input type="prenom" name="prenom" id="prenom" /><br />
@@ -24,17 +25,15 @@
             <label for="pass2">Confirmer le mot de passe</label> : <input type="password" name="pass2" id="pass2" /><br />
             <label for="mail">Email</label> : <input type="email" name="mail" id="mail" /><br />
             <label for="tel">Telephone</label> : <input type="text" name="tel" id="tel" /><br />
-            <input type="submit" value="Inscription" />
+            <input type="submit" value="Inscription" id="submit"></input>
         </p>
-    </form>'
-?>
     </form>
+   </form>
         <div class="side">
             <img src="assets/img/illu1" alt="illustration">
-        </div>;
+        </div>
 <?php
     // si le formulaire est envoyé
-
     if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['adresse']) && isset($_POST['pass1']) && isset($_POST['pass2']) && isset($_POST['mail']) && isset($_POST['tel'])) {
         // on vérifie que les deux mots de passe sont identiques
         if ($_POST['pass1'] == $_POST['pass2']) {
