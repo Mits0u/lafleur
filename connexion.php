@@ -17,7 +17,7 @@
         <label for="password">Mot de passe:</label>
         <input type="password" name="password" class="box" required placeholder="Indiquer votre mot de passe">
         <input type="submit" value="Se connecter" id="submit"></input>
-        <a href="#">Vous n'avez pas de compte ?</a>
+        <a href="inscription.php">Vous n'avez pas de compte ?</a>
     </form>
     <div class="side">
         <img src="assets/img/illu1" alt="illustration">
