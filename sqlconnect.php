@@ -15,11 +15,11 @@
 try {
 
     // le lien pour se connecter a la base de données mysql
-    $dns = 'mysql:host=51.158.69.181;dbname=lafleuriste';
+    $dns = 'mysql:host=localhost;dbname=lafleuriste';
     // le nom d'utilisateur pour se connecter
-    $utilisateur = 'lafleur';
+    $utilisateur = 'root';
     // le mot de passe de l'utilisateur pour se connecter
-    $password = '1234';
+    $password = '';
     // on se connecte à MySQL
     $connection = new PDO($dns, $utilisateur, $password);
     // on définit l'encondage des caractères en utf8
