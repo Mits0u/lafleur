@@ -18,16 +18,16 @@
     echo '<form action="inscription.php" method="post">'
     ?>
         <p>
-            <label for="nom">Nom</label> : <input type="text" name="nom" id="nom" /><br />
-            <label for="prenom">Prenom</label> : <input type="prenom" name="prenom" id="prenom" /><br />
-            <label for="adresse">Adresse</label> : <input type="text" name="adresse" id="adresse" /><br />
-            <label for="pass1">Mot de passe</label> : <input type="password" name="pass1" id="pass1" /><br />
-            <label for="pass2">Confirmer le mot de passe</label> : <input type="password" name="pass2" id="pass2" /><br />
-            <label for="mail">Email</label> : <input type="email" name="mail" id="mail" /><br />
-            <label for="tel">Telephone</label> : <input type="text" name="tel" id="tel" /><br />
-            <input type="submit" value="Inscription" id="submit"></input>
+            <label for="nom">Nom</label> : <br /><input type="text" name="nom" id="nom" class="box" /><br />
+            <label for="prenom">Prenom</label> : <br /><input type="prenom" name="prenom" id="prenom" class="box" /><br />
+            <label for="adresse">Adresse</label> : <br /><input type="text" name="adresse" id="adresse" class="box" /><br />
+            <label for="pass1">Mot de passe</label> : <br /><input type="password" name="pass1" id="pass1" class="box" /><br />
+            <label for="pass2">Confirmer le mot de passe</label> : <br /><input type="password" name="pass2" id="pass2" class="box" /><br />
+            <label for="mail">Email</label> : <br /><input type="email" name="mail" id="mail" class="box" /><br />
+            <label for="tel">Telephone</label> : <br /><input type="text" name="tel" id="tel" class="box" />
+            <input type="submit" value="Inscription" id="submit" class="box"></input>
         </p>
-    </form>
+        </form>
    </form>
         <div class="side">
             <img src="assets/img/illu1" alt="illustration">
