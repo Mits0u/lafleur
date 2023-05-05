@@ -25,6 +25,7 @@
 </div>
 
 <?php
+session_start();
 require 'sqlconnect.php'; // on inclut le fichier de connexion à la base de données
 
 // Vérifier si les champs sont remplis
@@ -41,7 +42,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $array = $results->fetchAll();
     if (count($array) == 1){
         $_SESSION['email'] = $email;
-        echo '<h1>' . 'Authentification réussie' . '</h1>';
+        $sql = "SELECT prenom FROM utilisateurs WHERE mail = :email";
+        $results = $connection->prepare($sql);
+        $results->bindParam(':email', $email);
+        $results->execute();
+        $array = $results->fetchAll();
+        $_SESSION['prenom'] = $array[0]['prenom'];
     } else {
         echo "Erreur d'authentification";
     }
