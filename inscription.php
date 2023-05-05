@@ -1,85 +1,119 @@
-<?php
-    session_start();
-    include('bd/inscription.php'); // Fichier PHP contenant la connexion à votre BDD
- 
-    // S'il y a une session alors on ne retourne plus sur cette page
-    if (isset($_SESSION['id'])){
-        header('Location: index.php'); 
-        exit;
-    }
- 
-    // Si la variable "$_Post" contient des informations alors on les traitres
-    if(!empty($_POST)){
-        extract($_POST);
-        $valid = true;
- 
-        // On se place sur le bon formulaire grâce au "name" de la balise "input"
-        if (isset($_POST['inscription'])){
-            $nom  = htmlentities(trim($nom)); // On récupère le nom
-            $prenom = htmlentities(trim($prenom)); // on récupère le prénom
-            $mail = htmlentities(strtolower(trim($mail))); // On récupère le mail
-            $mdp = trim($mdp); // On récupère le mot de passe 
-            $confmdp = trim($confmdp); //  On récupère la confirmation du mot de passe
- 
-            //  Vérification du nom
-            if(empty($nom)){
-                $valid = false;
-                $er_nom = ("Le nom d' utilisateur ne peut pas être vide");
-            }       
- 
-            //  Vérification du prénom
-            if(empty($prenom)){
-                $valid = false;
-                $er_prenom = ("Le prenom d' utilisateur ne peut pas être vide");
-            }       
- 
-            // Vérification du mail
-            if(empty($mail)){
-                $valid = false;
-                $er_mail = "Le mail ne peut pas être vide";
- 
-                // On vérifit que le mail est dans le bon format
-            }elseif(!preg_match("/^[a-z0-9\-_.]+@[a-z]+\.[a-z]{2,3}$/i", $mail)){
-                $valid = false;
-                $er_mail = "Le mail n'est pas valide";
- 
-            }else{
-                // On vérifit que le mail est disponible
-                $req_mail = $DB->query("SELECT mail FROM utilisateur WHERE mail = ?",
-                    array($mail));
- 
-                $req_mail = $req_mail->fetch();
- 
-                if ($req_mail['mail'] <> ""){
-                    $valid = false;
-                    $er_mail = "Ce mail existe déjà";
-                }
-            }
- 
-            // Vérification du mot de passe
-            if(empty($mdp)) {
-                $valid = false;
-                $er_mdp = "Le mot de passe ne peut pas être vide";
- 
-            }elseif($mdp != $confmdp){
-                $valid = false;
-                $er_mdp = "La confirmation du mot de passe ne correspond pas";
-            }
- 
-            // Si toutes les conditions sont remplies alors on fait le traitement
-            if($valid){
- 
-                $mdp = crypt($mdp, "$6$rounds=5000$macleapersonnaliseretagardersecret$");
-                $date_creation_compte = date('Y-m-d H:i:s');
- 
-                // On insert nos données dans la table utilisateur
-                $DB->insert("INSERT INTO utilisateur (nom, prenom, mail, mdp, date_creation_compte) VALUES 
-                    (?, ?, ?, ?, ?)", 
-                    array($nom, $prenom, $mail, $mdp, $date_creation_compte));
- 
-                header('Location: index.php');
-                exit;
-            }
-        }
-    }
-?>
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="author" content="NoS1gnal"/>
+
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <title>Inscription</title>
+        </head>
+        <body>
+        <div class="login-form">
+            <?php 
+                if(isset($_GET['reg_err']))
+                {
+                    $err = htmlspecialchars($_GET['reg_err']);
+
+                    switch($err)
+                    {
+                        case 'success':
+                        ?>
+                            <div class="alert alert-success">
+                                <strong>Succès</strong> inscription réussie !
+                            </div>
+                        <?php
+                        break;
+
+                        case 'password':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> mot de passe différent
+                            </div>
+                        <?php
+                        break;
+
+                        case 'mail':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> mail non valide
+                            </div>
+                        <?php
+                        break;
+
+                        case 'email_length':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> email trop long
+                            </div>
+                        <?php 
+                        break;
+
+                        case 'pseudo_length':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> Nom trop long
+                            </div>
+                        <?php 
+                        case 'already':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> compte deja existant
+                            </div>
+                        <?php 
+
+                    }
+                }
+                ?>
+            
+            <form action="inscription_traitement.php" method="post">
+                <h2 class="text-center">Inscription</h2>       
+                <div class="form-group">
+                    <input type="text" name="nom" class="form-control" placeholder="Nom" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="prenom" class="form-control" placeholder="Prénom" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="mail" name="mail" class="form-control" placeholder="Email" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="telephone" class="form-control" placeholder="Télephone" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="passwordp_retype" class="form-control" placeholder="Re-tapez le mot de passe" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+                </div>   
+            </form>
+        </div>
+        <style>
+            .login-form {
+                width: 340px;
+                margin: 50px auto;
+            }
+            .login-form form {
+                margin-bottom: 15px;
+                background: #f7f7f7;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                padding: 30px;
+            }
+            .login-form h2 {
+                margin: 0 0 15px;
+            }
+            .form-control, .btn {
+                min-height: 38px;
+                border-radius: 2px;
+            }
+            .btn {        
+                font-size: 15px;
+                font-weight: bold;
+            }
+        </style>
+        </body>
+</html>
